@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5CFFCB342E22BC68009AB056 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5CFFCB332E22BC68009AB056 /* SDWebImageSwiftUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5CFFCABC2E22B4F0009AB056 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CFFCB342E22BC68009AB056 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = Crypto.iOS;
 			packageProductDependencies = (
+				5CFFCB332E22BC68009AB056 /* SDWebImageSwiftUI */,
 			);
 			productName = Crypto.iOS;
 			productReference = 5CFFCAAE2E22B4EF009AB056 /* Crypto.iOS.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 5CFFCAA52E22B4EF009AB056;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5CFFCB322E22BC68009AB056 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5CFFCAAF2E22B4EF009AB056 /* Products */;
 			projectDirPath = "";
@@ -558,6 +567,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5CFFCB322E22BC68009AB056 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5CFFCB332E22BC68009AB056 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CFFCB322E22BC68009AB056 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5CFFCAA62E22B4EF009AB056 /* Project object */;
 }
