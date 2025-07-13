@@ -19,7 +19,7 @@ struct AnimatedLaunchScreen: View {
     
     var body: some View {
         if !isLoading {
-            MainTabView() // Your main app
+            MainTabView()
         } else {
             ZStack {
                 // Animated Background
@@ -77,7 +77,7 @@ private extension AnimatedLaunchScreen {
                 .frame(width: 160, height: 160)
                 .opacity(logoOpacity * 0.7)
             
-            // Main Logo
+            // Logo
             Image(systemName: "bitcoinsign.circle.fill")
                 .resizable()
                 .scaledToFit()

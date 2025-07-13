@@ -84,7 +84,6 @@ struct SearchBarView: View {
             )
     }
     
-    // Shared color properties
     private var textColor: Color {
         colorScheme == .dark ? .white : .black
     }

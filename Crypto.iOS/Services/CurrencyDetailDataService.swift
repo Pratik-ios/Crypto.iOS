@@ -29,7 +29,6 @@ extension CurrencyDetailDataService {
                 switch result {
                 case .success(let dataResponse):
                     guard let dataResponse = dataResponse else {
-                        // ✅ FIXED: Call completion with error
                         completion(.failure(.invalidData))
                         return
                     }

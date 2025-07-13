@@ -12,7 +12,7 @@ class ThemeManager: ObservableObject {
     static let shared = ThemeManager()
     
     @Published var currentTheme: AppTheme = .system
-    @Published var userSelectedTheme: UserTheme = .none // Tracks user's manual choice
+    @Published var userSelectedTheme: UserTheme = .none
     
     enum AppTheme: String, CaseIterable {
         case system = "system"
@@ -29,9 +29,9 @@ class ThemeManager: ObservableObject {
     }
     
     enum UserTheme: String, CaseIterable {
-        case none = "none"      // Follows system (default)
-        case light = "light"    // User chose light
-        case dark = "dark"      // User chose dark
+        case none = "none"
+        case light = "light"
+        case dark = "dark"
         
         var displayName: String {
             switch self {
@@ -58,7 +58,6 @@ class ThemeManager: ObservableObject {
         }
     }
     
-    // Only show Light/Dark options (no auto)
     static let availableThemes: [UserTheme] = [.light, .dark]
     
     init() {
@@ -94,7 +93,6 @@ class ThemeManager: ObservableObject {
            let theme = UserTheme(rawValue: savedTheme) {
             userSelectedTheme = theme
         } else {
-            // Default: follow system theme
             userSelectedTheme = .none
         }
     }
