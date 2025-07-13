@@ -1,26 +1,23 @@
+//
+//  ThemeManager.swift
+//  Crypto.iOS
+//
+//  Created by Pratik Khopkar on 13/07/25.
+//
+
+import Foundation
+import SwiftUI
+
 class ThemeManager: ObservableObject {
+    static let shared = ThemeManager()
+    
     @Published var currentTheme: AppTheme = .system
+    @Published var userSelectedTheme: UserTheme = .none // Tracks user's manual choice
     
     enum AppTheme: String, CaseIterable {
         case system = "system"
         case light = "light"
         case dark = "dark"
-        
-        var displayName: String {
-            switch self {
-            case .system: return "Auto"
-            case .light: return "Light"
-            case .dark: return "Dark"
-            }
-        }
-        
-        var iconName: String {
-            switch self {
-            case .system: return "circle.lefthalf.filled"
-            case .light: return "sun.max.fill"
-            case .dark: return "moon.fill"
-            }
-        }
         
         var colorScheme: ColorScheme? {
             switch self {
@@ -31,23 +28,74 @@ class ThemeManager: ObservableObject {
         }
     }
     
-    init() {
-        loadTheme()
+    enum UserTheme: String, CaseIterable {
+        case none = "none"      // Follows system (default)
+        case light = "light"    // User chose light
+        case dark = "dark"      // User chose dark
+        
+        var displayName: String {
+            switch self {
+            case .none: return "Auto"
+            case .light: return "Light"
+            case .dark: return "Dark"
+            }
+        }
+        
+        var iconName: String {
+            switch self {
+            case .none: return "circle.lefthalf.filled"
+            case .light: return "sun.max.fill"
+            case .dark: return "moon.fill"
+            }
+        }
+        
+        var appTheme: AppTheme {
+            switch self {
+            case .none: return .system
+            case .light: return .light
+            case .dark: return .dark
+            }
+        }
     }
     
-    func setTheme(_ theme: AppTheme) {
-        currentTheme = theme
+    // Only show Light/Dark options (no auto)
+    static let availableThemes: [UserTheme] = [.light, .dark]
+    
+    init() {
+        loadTheme()
+        updateCurrentTheme()
+    }
+    
+    func setTheme(_ theme: UserTheme) {
+        userSelectedTheme = theme
+        updateCurrentTheme()
         saveTheme()
     }
     
+    func toggleTheme() {
+        switch userSelectedTheme {
+        case .none, .light:
+            setTheme(.dark)
+        case .dark:
+            setTheme(.light)
+        }
+    }
+    
+    private func updateCurrentTheme() {
+        currentTheme = userSelectedTheme.appTheme
+    }
+    
     private func saveTheme() {
-        UserDefaults.standard.set(currentTheme.rawValue, forKey: "selectedTheme")
+        UserDefaults.standard.set(userSelectedTheme.rawValue, forKey: "selectedTheme")
     }
     
     private func loadTheme() {
         if let savedTheme = UserDefaults.standard.string(forKey: "selectedTheme"),
-           let theme = AppTheme(rawValue: savedTheme) {
-            currentTheme = theme
+           let theme = UserTheme(rawValue: savedTheme) {
+            userSelectedTheme = theme
+        } else {
+            // Default: follow system theme
+            userSelectedTheme = .none
         }
     }
 }

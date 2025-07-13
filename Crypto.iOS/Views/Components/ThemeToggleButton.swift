@@ -1,54 +1,75 @@
+//
+//  ThemeToggleButton.swift
+//  Crypto.iOS
+//
+//  Created by Pratik Khopkar on 13/07/25.
+//
+
+import SwiftUI
+
 struct ThemeToggleButton: View {
     @ObservedObject var themeManager: ThemeManager
-    @State private var showingThemeSelector = false
-    @State private var isAnimating = false
+    @State private var isPressed = false
     @Environment(\.colorScheme) var systemColorScheme
     
     var body: some View {
         Button(action: {
-            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
-                isAnimating = true
-                showingThemeSelector = true
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                isAnimating = false
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                themeManager.toggleTheme()
             }
         }) {
-            Image(systemName: themeManager.currentTheme.iconName)
-                .font(.title3)
-                .foregroundColor(buttonColor)
-                .scaleEffect(isAnimating ? 1.2 : 1.0)
-                .rotationEffect(.degrees(isAnimating ? 180 : 0))
-        }
-        .confirmationDialog("Choose Theme", isPresented: $showingThemeSelector, titleVisibility: .visible) {
-            ForEach(ThemeManager.AppTheme.allCases, id: \.self) { theme in
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        themeManager.setTheme(theme)
+            ZStack {
+                // Background track
+                Capsule()
+                    .fill(trackColor)
+                    .frame(width: 52, height: 28)
+                
+                // Sliding indicator
+                HStack {
+                    if isLightMode {
+                        Spacer()
                     }
-                }) {
-                    HStack {
-                        Image(systemName: theme.iconName)
-                        Text(theme.displayName)
-                        if themeManager.currentTheme == theme {
-                            Image(systemName: "checkmark")
-                        }
+                    
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 24, height: 24)
+                        .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 1)
+                        .overlay(
+                            Image(systemName: currentModeIcon)
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(iconColor)
+                        )
+                    
+                    if !isLightMode {
+                        Spacer()
                     }
                 }
+                .padding(.horizontal, 2)
             }
         }
+        .buttonStyle(PlainButtonStyle())
+        .scaleEffect(isPressed ? 0.95 : 1.0)
+        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+            withAnimation(.easeInOut(duration: 0.1)) {
+                isPressed = pressing
+            }
+        }, perform: {})
     }
     
-    private var buttonColor: Color {
-        let currentScheme = themeManager.currentTheme.colorScheme ?? systemColorScheme
-        switch themeManager.currentTheme {
-        case .light:
-            return .orange
-        case .dark:
-            return .blue
-        case .system:
-            return currentScheme == .dark ? .purple : .green
-        }
+    private var isLightMode: Bool {
+        let effectiveScheme = themeManager.currentTheme.colorScheme ?? systemColorScheme
+        return effectiveScheme == .light
+    }
+    
+    private var trackColor: Color {
+        isLightMode ? Color.orange.opacity(0.3) : Color.blue.opacity(0.3)
+    }
+    
+    private var currentModeIcon: String {
+        isLightMode ? "sun.max.fill" : "moon.fill"
+    }
+    
+    private var iconColor: Color {
+        isLightMode ? .orange : .blue
     }
 }

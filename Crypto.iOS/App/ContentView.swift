@@ -11,6 +11,8 @@ import SDWebImageSwiftUI
 struct ContentView: View {
     @StateObject private var viewModel = CurrencyViewModel()
     @StateObject private var wishlistManager = WishlistManager.shared
+    @ObservedObject var themeManager = ThemeManager.shared
+    @Environment(\.colorScheme) var systemColorScheme
     
     var body: some View {
         NavigationView {
@@ -20,8 +22,15 @@ struct ContentView: View {
                 coinsList
             }
             .navigationTitle("Crypto iOS")
+            .toolbar {
+                            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                                ThemeToggleButton(themeManager: themeManager)
+                                
+                            }
+                        }
             .errorOverlay(viewModel.errorMessage)
         }
+        .preferredColorScheme(themeManager.currentTheme.colorScheme)
     }
 }
 

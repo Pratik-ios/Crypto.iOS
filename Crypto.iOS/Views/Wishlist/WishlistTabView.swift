@@ -1,3 +1,13 @@
+//
+//  WishlistTabView.swift
+//  Crypto.iOS
+//
+//  Created by Pratik Khopkar on 13/07/25.
+//
+
+import SwiftUI
+import SDWebImageSwiftUI
+
 struct WishlistTabView: View {
     @StateObject private var viewModel = CurrencyViewModel()
     @EnvironmentObject var wishlistManager: WishlistManager
@@ -5,7 +15,7 @@ struct WishlistTabView: View {
     @Environment(\.colorScheme) var systemColorScheme
     
     private var wishlistCoins: [Currency] {
-        viewModel.allCoins.filter { coin in
+        viewModel.coins.filter { coin in
             wishlistManager.isInWishlist(coin.id ?? "")
         }
     }
@@ -25,15 +35,15 @@ struct WishlistTabView: View {
                     if !wishlistManager.wishlistCoinIds.isEmpty {
                         clearAllButton
                     }
-                    SimpleThemeToggle(themeManager: themeManager)
+                    
                 }
             }
         }
         .onAppear {
-            // Load coins if not already loaded
-            if viewModel.allCoins.isEmpty {
+            
+            if viewModel.coins.isEmpty {
                 Task {
-                    await viewModel.loadData()
+                    await viewModel.refreshData()
                 }
             }
         }
@@ -41,12 +51,12 @@ struct WishlistTabView: View {
     
     private var wishlistContent: some View {
         List {
-            // Summary Section
+            
             WishlistSummaryCard(coins: wishlistCoins)
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
             
-            // Coins Section
+            
             ForEach(wishlistCoins) { coin in
                 NavigationLink(destination: DetailView(coin: coin)) {
                     WishlistCoinRow(coin: coin, wishlistManager: wishlistManager)

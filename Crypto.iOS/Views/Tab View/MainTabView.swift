@@ -1,12 +1,22 @@
+//
+//  MainTabView.swift
+//  Crypto.iOS
+//
+//  Created by Pratik Khopkar on 13/07/25.
+//
+
+import SwiftUI
+import SDWebImageSwiftUI
+
 struct MainTabView: View {
-    @StateObject private var themeManager = ThemeManager()
+    @StateObject private var themeManager = ThemeManager.shared
     @StateObject private var wishlistManager = WishlistManager.shared
     @Environment(\.colorScheme) var systemColorScheme
     
     var body: some View {
         TabView {
             // Home Tab
-            HomeView()
+            ContentView()
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
@@ -19,7 +29,7 @@ struct MainTabView: View {
                     Image(systemName: "heart.fill")
                     Text("Wishlist")
                 }
-                .badge(wishlistManager.wishlistCoinIds.isEmpty ? nil : wishlistManager.wishlistCoinIds.count)
+                .badge(wishlistManager.wishlistCoinIds.isEmpty ? 0 : wishlistManager.wishlistCoinIds.count)
                 .tag(1)
         }
         .environmentObject(themeManager)

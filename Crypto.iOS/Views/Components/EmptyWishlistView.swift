@@ -1,3 +1,12 @@
+//
+//  EmptyWishlistView.swift
+//  Crypto.iOS
+//
+//  Created by Pratik Khopkar on 13/07/25.
+//
+
+import SwiftUI
+
 struct EmptyWishlistView: View {
     @Environment(\.colorScheme) var colorScheme
     
@@ -39,15 +48,6 @@ struct EmptyWishlistView: View {
                 .font(.caption)
                 .foregroundColor(secondaryTextColor)
                 
-                HStack(spacing: 8) {
-                    Image(systemName: "bell")
-                        .foregroundColor(.blue)
-                    Text("Track")
-                        .fontWeight(.semibold)
-                    Text("price changes")
-                }
-                .font(.caption)
-                .foregroundColor(secondaryTextColor)
             }
             .padding(.top, 16)
         }

@@ -26,9 +26,9 @@ class WishlistManager: ObservableObject {
         }
     }
     
-    private func saveWishlist() {
+    func saveWishlist() {
         if let data = try? JSONEncoder().encode(wishlistCoinIds) {
-            userDefaults.set(data, forKey: wishlistKey)
+            UserDefaults.standard.set(data, forKey: wishlistKey)
         }
     }
     

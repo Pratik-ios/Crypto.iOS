@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C1ED4432E23C8A400D2FC79 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5C1ED4422E23C8A400D2FC79 /* README.md */; };
 		5CFFCB342E22BC68009AB056 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5CFFCB332E22BC68009AB056 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C1ED4422E23C8A400D2FC79 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5CFFCAAE2E22B4EF009AB056 /* Crypto.iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crypto.iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CFFCABB2E22B4F0009AB056 /* Crypto.iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Crypto.iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CFFCAC52E22B4F0009AB056 /* Crypto.iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Crypto.iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +82,7 @@
 		5CFFCAA52E22B4EF009AB056 = {
 			isa = PBXGroup;
 			children = (
+				5C1ED4422E23C8A400D2FC79 /* README.md */,
 				5CFFCAB02E22B4EF009AB056 /* Crypto.iOS */,
 				5CFFCABE2E22B4F0009AB056 /* Crypto.iOSTests */,
 				5CFFCAC82E22B4F0009AB056 /* Crypto.iOSUITests */,
@@ -221,6 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C1ED4432E23C8A400D2FC79 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

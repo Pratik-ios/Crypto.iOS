@@ -1,3 +1,13 @@
+//
+//  WishlistSummaryCard.swift
+//  Crypto.iOS
+//
+//  Created by Pratik Khopkar on 13/07/25.
+//
+
+import SwiftUI
+import SDWebImageSwiftUI
+
 struct WishlistSummaryCard: View {
     let coins: [Currency]
     @Environment(\.colorScheme) var colorScheme
